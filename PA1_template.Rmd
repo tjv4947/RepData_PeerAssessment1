@@ -103,7 +103,7 @@ _____________________________________________________________________
 
 
 ### What is the average daily activity pattern?
-```{r, echo=TRUE}
+```{r averageDailyActivity, echo=TRUE}
 
 ##  Aggregate data for intervals to create frequency time series
     int_mean_steps <- aggregate(rawdata$steps, list(interval=rawdata$interval), FUN=mean, na.rm=TRUE)
@@ -121,7 +121,7 @@ _____________________________________________________________________
 #### The maximum average steps is: **`r round(max_mean_steps$x)`** which occured at interval:  **`r max_mean_steps$interval`**
 
 ### Imputing missing values
-```{r, echo=TRUE}
+```{r imputingMissingValues, echo=TRUE}
 
 ## Create function to replace NA values in data with an average from the rawdata
 ##  Function could be enhanced to take averages from near neighbors of the missing values and factor in time of day and day of week

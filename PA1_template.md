@@ -47,7 +47,7 @@ _____________________________________________________________________
 ```
 
 <!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 12:01:20 2014 -->
+<!-- Sun Aug 17 12:08:03 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> Min.   :  0.0   </TD> <TD> Min.   :2012-10-01   </TD> <TD> Min.   :   0   </TD> </TR>
@@ -122,7 +122,7 @@ _____________________________________________________________________
     plot(int_mean_steps$interval, int_mean_steps$x, type="l", col = "blue", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Avg. Steps at Each Time Interval")  
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
+![plot of chunk averageDailyActivity](figure/averageDailyActivity.png) 
 
 #### The maximum average steps is: **206** which occured at interval:  **835**
 
@@ -148,7 +148,7 @@ _____________________________________________________________________
     hist(int_mean_steps$x, breaks=40, col = "green", xlab="Average Step Counts", ylab="Step Frequencies", main="Histogram of Processed Mean Steps for Intervals")  
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-21.png) 
+![plot of chunk imputingMissingValues](figure/imputingMissingValues1.png) 
 
 ```r
 ##  Create mean step counts for time intervals to create  histogram
@@ -159,7 +159,7 @@ _____________________________________________________________________
     hist(int_median_steps$x, breaks=40, col = "yellow", xlab="Median Step Counts", ylab="Step Frequencies", main="Histogram of Processed Median Steps")  
 ```
 
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-22.png) 
+![plot of chunk imputingMissingValues](figure/imputingMissingValues2.png) 
 
 Note: Processed data has:  **0** missing values 
 
