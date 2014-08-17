@@ -1,20 +1,101 @@
-# Reproducible Research: Peer Assessment 1
-
-
-## Loading and preprocessing the data
-
-
-
-## What is mean total number of steps taken per day?
+Reproducible Research: Peer Assessment 1
+=========================================
 
 
 
-## What is the average daily activity pattern?
+#### Loading and preprocessing the data
+```{r loadingData, echo=TRUE, results='asis'}
+
+    library(ggplot2)
+    library(xtable)
+
+    setwd("~/GitHub/RepData_PeerAssessment1")
+    
+    rawdata <- read.csv("activity.csv", na.strings=c("NA"))
+    
+    ## convert dates to date format
+    rawdata$date <- as.Date(as.character(rawdata$date))
+
+    ## Section to compute weekday/weekend for one of the problems
+
+    ## declare function to test for weekday or weekend or an input date
+    wkEndFcn <- function (inpDt) {
+        tmpDay <- weekdays(inpDt) 
+        if((tmpDay == "Saturday") || (tmpDay == "Sunday")) 
+            return("weekend")
+        else
+            return("weekday")     
+    }
+
+    ### declare column
+    DOW <- character(nrow(rawdata))
+
+    ## for loop to do the work
+    for (i in 1:nrow(rawdata)) {
+        DOW[i] <- wkEndFcn(rawdata$date[i])
+    }
+ 
+    # combine data into processed dataset
+    procdata <- cbind(rawdata, DOW)
+
+```
 
 
+### Background Information of activity data:
 
-## Imputing missing values
+```{r dataSummary, echo=T, results='asis'}
+
+    xt_sum <- xtable(summary(rawdata))
+    print(xt_sum, type="html")
 
 
+```
 
-## Are there differences in activity patterns between weekdays and weekends?
+
+The overall mean value for steps is: **`r mean(rawdata$steps, na.rm=T)`**
+
+The overall median value for steps is: **`r median(rawdata$steps, na.rm=T)`**
+
+______________
+
+
+### What is mean total number of steps taken per day?
+```{r , echo=TRUE}
+
+    total_steps <- aggregate(rawdata$steps, list(day=rawdata$date), FUN=sum, na.rm=TRUE)
+
+
+par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+barplot(total_steps$x, col="blue", main="Total Steps Each Day", ylab="Step Count" )
+
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+hist(total_steps$x, col = "green", ylim=c(0,30), xlab="Dates", main="Histogram of Steps Frequencies")
+
+##    hist(total_steps$x, col = "blue", xlab="Dates", main="Frequency of Steps",  xaxt="n")
+
+#####ylim=c(0, 1000)
+
+
+```
+
+
+### What is the average daily activity pattern?
+```{r, echo=TRUE}
+```
+
+
+### Imputing missing values
+```{r, echo=TRUE}
+
+imputeVal <- function(inpSteps) {
+    replace(inpSteps, is.na(inpSteps), mean(rawdata$steps, na.rm = TRUE))
+}
+
+```
+
+
+### Are there differences in activity patterns between weekdays and weekends?
+```{r, echo=TRUE}
+
+
+```
