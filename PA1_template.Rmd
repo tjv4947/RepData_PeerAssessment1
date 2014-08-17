@@ -122,7 +122,7 @@ _____________________________________________________________________
 
 
     par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
-    plot(int_mean_steps$interval, int_mean_steps$x, type="l", col = "blue", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Avg. Steps at Each Time Interval")  
+    plot(int_mean_steps$interval, int_mean_steps$x, type="l", col = "blue", lwd=2, xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Avg. Steps at Each Time Interval")  
 
 
 ```
@@ -188,9 +188,9 @@ Charts for mean and median processed data appear very similar in shape and conto
 
 
     par(mfrow = c(2, 1), mar = c(5, 4, 2, 2))
-    plot(int_weekend_steps$interval, int_weekend_steps$x, type="l", col = "cyan", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekend Avg. Steps")  
+    plot(int_weekend_steps$interval, int_weekend_steps$x, type="l", col = "cyan", lwd=2, xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekend Avg. Steps")  
 
-    plot(int_weekday_steps$interval, int_weekday_steps$x, type="l", col = "purple", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekday Avg. Steps")  
+    plot(int_weekday_steps$interval, int_weekday_steps$x, type="l", col = "purple", lwd=2, xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekday Avg. Steps")  
 
 ```
 

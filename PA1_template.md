@@ -47,7 +47,7 @@ _____________________________________________________________________
 ```
 
 <!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 15:45:12 2014 -->
+<!-- Sun Aug 17 16:04:14 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> Min.   :  0.0   </TD> <TD> Min.   :2012-10-01   </TD> <TD> Min.   :   0   </TD> </TR>
@@ -128,7 +128,7 @@ _____________________________________________________________________
     max_mean_steps <- int_mean_steps[int_mean_steps$x == max(int_mean_steps$x),]
 
     par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
-    plot(int_mean_steps$interval, int_mean_steps$x, type="l", col = "blue", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Avg. Steps at Each Time Interval")  
+    plot(int_mean_steps$interval, int_mean_steps$x, type="l", col = "blue", lwd=2, xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Avg. Steps at Each Time Interval")  
 ```
 
 ![plot of chunk averageDailyActivity](figure/averageDailyActivity.png) 
@@ -197,9 +197,9 @@ Charts for mean and median processed data appear very similar in shape and conto
     max_weekday_steps <- int_weekday_steps[int_weekday_steps$x == max(int_weekday_steps$x),]
 
     par(mfrow = c(2, 1), mar = c(5, 4, 2, 2))
-    plot(int_weekend_steps$interval, int_weekend_steps$x, type="l", col = "cyan", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekend Avg. Steps")  
+    plot(int_weekend_steps$interval, int_weekend_steps$x, type="l", col = "cyan", lwd=2, xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekend Avg. Steps")  
 
-    plot(int_weekday_steps$interval, int_weekday_steps$x, type="l", col = "purple", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekday Avg. Steps")  
+    plot(int_weekday_steps$interval, int_weekday_steps$x, type="l", col = "purple", lwd=2, xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekday Avg. Steps")  
 ```
 
 ![plot of chunk weekendTimeSeries](figure/weekendTimeSeries.png) 
