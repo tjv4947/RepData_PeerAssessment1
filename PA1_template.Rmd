@@ -56,24 +56,49 @@ The overall mean value for steps is: **`r mean(rawdata$steps, na.rm=T)`**
 
 The overall median value for steps is: **`r median(rawdata$steps, na.rm=T)`**
 
+Notice that there are over **2300** missing values from the data
+
+
+```{r dataSummaryChart, fig.height=4, fig.width=6,  echo=T}
+
+
+    day_tot_steps <- aggregate(rawdata$steps, list(day=rawdata$date), FUN=sum, na.rm=TRUE)
+
+
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    barplot(day_tot_steps$x, col="blue", main="Total Steps Each Day", ylab="Step Count", xlab="Days" )
+
+
+```
+
+**N.B.** From the bar chart above eight days are missing data
+
 ______________
 
 
 ### What is mean total number of steps taken per day?
+####           Chart of Mean Frequencies for Intevals
 ```{r , echo=TRUE}
+    
+##  Create mean step counts for time intervals to create  histogram
+    int_mean_steps <- aggregate(rawdata$steps, list(interval=rawdata$interval), FUN=mean, na.rm=TRUE)
 
-    total_steps <- aggregate(rawdata$steps, list(day=rawdata$date), FUN=sum, na.rm=TRUE)
-
-
-par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
-barplot(total_steps$x, col="blue", main="Total Steps Each Day", ylab="Step Count" )
 
     par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
-hist(total_steps$x, col = "green", ylim=c(0,30), xlab="Dates", main="Histogram of Steps Frequencies")
+    hist(int_mean_steps$x, breaks=40, col = "green", xlab="Average Step Counts", ylab="Step Frequencies", main="Histogram of Mean Steps for Intervals")  
 
-##    hist(total_steps$x, col = "blue", xlab="Dates", main="Frequency of Steps",  xaxt="n")
+```
 
-#####ylim=c(0, 1000)
+
+####          Chart of Median Frequencies for Intervals
+```{r , echo=TRUE}
+
+##  Create mean step counts for time intervals to create  histogram
+    int_mean_steps <- aggregate(rawdata$steps, list(interval=rawdata$interval), FUN=median, na.rm=TRUE)
+
+
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    hist(int_mean_steps$x, breaks=40, col = "yellow", xlab="Median Step Counts", ylab="Step Frequencies", main="Histogram of Median Steps")  
 
 
 ```
@@ -81,8 +106,21 @@ hist(total_steps$x, col = "green", ylim=c(0,30), xlab="Dates", main="Histogram o
 
 ### What is the average daily activity pattern?
 ```{r, echo=TRUE}
+
+##  Aggregate data for intervals to create frequency histogram
+    int_mean_steps <- aggregate(rawdata$steps, list(interval=rawdata$interval), FUN=mean, na.rm=TRUE)
+
+# Find Time Interval for maximum step activity
+    max_mean_steps <- int_mean_steps[int_mean_steps$x == max(int_mean_steps$x),]
+
+
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    plot(int_mean_steps$interval, int_mean_steps$x, type="l", col = "blue", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Avg. Steps at Each Time Interval")  
+
+
 ```
 
+#### The maximum average steps is: **`r round(max_mean_steps$x)`** which occured at interval:  **`r max_mean_steps$interval`**
 
 ### Imputing missing values
 ```{r, echo=TRUE}
