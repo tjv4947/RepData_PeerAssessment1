@@ -54,7 +54,7 @@ The overall mean value for steps is: **`r mean(rawdata$steps, na.rm=T)`**
 
 The overall median value for steps is: **`r median(rawdata$steps, na.rm=T)`**
 
-Note that there are **`r sum(is.na(rawdata$steps))`** missing values from the raw data
+Note: there are **`r sum(is.na(rawdata$steps))`** missing values from the raw data
 
 
 ```{r dataSummaryChart, fig.height=4, fig.width=6,  echo=T}
@@ -75,6 +75,15 @@ _____________________________________________________________________
 
 
 ### What is mean total number of steps taken per day?
+```{r totalStepsHistogram, echo=TRUE}
+    
+
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    hist(day_tot_steps$x, breaks=40, col = "blue", xlab="Total Step Counts", ylab="Step Frequencies", main="Histogram of Total Steps for Intervals")  
+
+```
+
+
 ####           Chart of Mean Frequencies for Intevals
 ```{r chartMeanValues, echo=TRUE}
     

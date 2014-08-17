@@ -47,7 +47,7 @@ _____________________________________________________________________
 ```
 
 <!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 12:08:03 2014 -->
+<!-- Sun Aug 17 15:45:12 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> Min.   :  0.0   </TD> <TD> Min.   :2012-10-01   </TD> <TD> Min.   :   0   </TD> </TR>
@@ -64,7 +64,7 @@ The overall mean value for steps is: **37.3826**
 
 The overall median value for steps is: **0**
 
-Note that there are **2304** missing values from the raw data
+Note: there are **2304** missing values from the raw data
 
 
 
@@ -83,6 +83,15 @@ _____________________________________________________________________
 
 
 ### What is mean total number of steps taken per day?
+
+```r
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    hist(day_tot_steps$x, breaks=40, col = "blue", xlab="Total Step Counts", ylab="Step Frequencies", main="Histogram of Total Steps for Intervals")  
+```
+
+![plot of chunk totalStepsHistogram](figure/totalStepsHistogram.png) 
+
+
 ####           Chart of Mean Frequencies for Intevals
 
 ```r
