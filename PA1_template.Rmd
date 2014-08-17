@@ -17,7 +17,6 @@ Reproducible Research: Peer Assessment 1
     rawdata$date <- as.Date(as.character(rawdata$date))
 
     ## Section to compute weekday/weekend for one of the problems
-
     ## declare function to test for weekday or weekend or an input date
     wkEndFcn <- function (inpDt) {
         tmpDay <- weekdays(inpDt) 
@@ -35,7 +34,7 @@ Reproducible Research: Peer Assessment 1
         DOW[i] <- wkEndFcn(rawdata$date[i])
     }
  
-    # combine data into processed dataset
+    # combine factor data with raw data to create a new processed dataset
     procdata <- cbind(rawdata, DOW)
 
 ```
@@ -56,7 +55,7 @@ The overall mean value for steps is: **`r mean(rawdata$steps, na.rm=T)`**
 
 The overall median value for steps is: **`r median(rawdata$steps, na.rm=T)`**
 
-Notice that there are over **2300** missing values from the data
+Note that there are **`r sum(is.na(rawdata$steps))`** missing values from the raw data
 
 
 ```{r dataSummaryChart, fig.height=4, fig.width=6,  echo=T}
@@ -107,7 +106,7 @@ ______________
 ### What is the average daily activity pattern?
 ```{r, echo=TRUE}
 
-##  Aggregate data for intervals to create frequency histogram
+##  Aggregate data for intervals to create frequency time series
     int_mean_steps <- aggregate(rawdata$steps, list(interval=rawdata$interval), FUN=mean, na.rm=TRUE)
 
 # Find Time Interval for maximum step activity
@@ -125,15 +124,67 @@ ______________
 ### Imputing missing values
 ```{r, echo=TRUE}
 
-imputeVal <- function(inpSteps) {
-    replace(inpSteps, is.na(inpSteps), mean(rawdata$steps, na.rm = TRUE))
-}
+## Create function to replace NA values in data with an average from the rawdata
+##  Function could be enhanced to take averages from near neighbors of the missing values and factor in time of day and day of week
+    imputeVal <- function(inpSteps) {
+        replace(inpSteps, is.na(inpSteps), mean(rawdata$steps, na.rm = TRUE))
+    }
+
+  ## replace missing values in processed dataset created in first step
+    procdata$steps <- imputeVal(rawdata$steps)
+
+######
+
+##  Create mean step counts for time intervals to create  histogram
+    int_mean_steps <- aggregate(procdata$steps, list(interval=procdata$interval), FUN=mean, na.rm=TRUE)
+
+## N.B. Charted with identical params as raw data to avoid visualization difference
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    hist(int_mean_steps$x, breaks=40, col = "green", xlab="Average Step Counts", ylab="Step Frequencies", main="Histogram of Processed Mean Steps for Intervals")  
+
+
+##  Create mean step counts for time intervals to create  histogram
+    int_median_steps <- aggregate(procdata$steps, list(interval=procdata$interval), FUN=median, na.rm=TRUE)
+
+## N.B. Charted with identical params as raw data to avoid visualization difference
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    hist(int_median_steps$x, breaks=40, col = "yellow", xlab="Median Step Counts", ylab="Step Frequencies", main="Histogram of Processed Median Steps")  
 
 ```
+
+Note: Processed data has:  **`r sum(is.na(procdata$steps))`** missing values 
+
+Charts for mean and median processed data appear very similar in shape and contours as those with the rawdata with missing values.  There are slight bump in the median data around the substituted average value. Mean data show a similar bump around the substituted value as well, but not as noticable as with the median data. These artifacts could be reduced by using a more sophisticated value imputation function.  
 
 
 ### Are there differences in activity patterns between weekdays and weekends?
-```{r, echo=TRUE}
+```{r weekendTimeSeries, echo=TRUE}
 
+## subset data for weekends based on DOW column added in first section
+    weekendData <- procdata[(procdata$DOW == "weekend"),]
+##  Aggregate data for intervals to create frequency time series
+    int_weekend_steps <- aggregate(weekendData$steps, list(interval=weekendData$interval), FUN=mean)
+
+# Find Time Interval for maximum step activity for weekend
+    max_weekend_steps <- int_weekend_steps[int_weekend_steps$x == max(int_weekend_steps$x),]
+
+
+## subset data for weekdays
+    weekdayData <- procdata[(procdata$DOW == "weekday"),]
+    int_weekday_steps <- aggregate(weekdayData$steps, list(interval=weekdayData$interval), FUN=mean)
+
+# Find Time Interval for maximum step activity for weekday
+    max_weekday_steps <- int_weekday_steps[int_weekday_steps$x == max(int_weekday_steps$x),]
+
+
+    par(mfrow = c(2, 1), mar = c(5, 4, 2, 2))
+    plot(int_weekend_steps$interval, int_weekend_steps$x, type="l", col = "cyan", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekend Avg. Steps")  
+
+    plot(int_weekday_steps$interval, int_weekday_steps$x, type="l", col = "purple", xlab="Time Intervals", ylab="Average Steps Taken", main="Time Series of Weekday Avg. Steps")  
 
 ```
+
+
+The maximum weekend average steps is: **`r round(max_weekend_steps$x)`** which occured at interval:  **`r max_weekend_steps$interval`**
+
+The maximum weekday average steps is: **`r round(max_weekday_steps$x)`** which occured at interval:  **`r max_weekday_steps$interval`**
