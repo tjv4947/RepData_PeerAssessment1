@@ -144,6 +144,18 @@ _____________________________________________________________________
 ######
 
 ##  Create mean step counts for time intervals to create  histogram
+    int_total_steps <- aggregate(procdata$steps, list(interval=procdata$interval), FUN=mean, na.rm=TRUE)
+
+## N.B. Charted with identical params as raw data to avoid visualization difference
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    hist(int_total_steps$x, breaks=40, col = "blue", xlab="Step Counts", ylab="Step Frequencies", main="Histogram of Processed Total Steps for Intervals")  
+
+```
+
+#### Histograms of average values
+```{r imputedvalueAverages, echo=TRUE}
+
+##  Create mean step counts for time intervals to create  histogram
     int_mean_steps <- aggregate(procdata$steps, list(interval=procdata$interval), FUN=mean, na.rm=TRUE)
 
 ## N.B. Charted with identical params as raw data to avoid visualization difference

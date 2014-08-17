@@ -47,7 +47,7 @@ _____________________________________________________________________
 ```
 
 <!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
-<!-- Sun Aug 17 16:04:14 2014 -->
+<!-- Sun Aug 17 16:18:12 2014 -->
 <TABLE border=1>
 <TR> <TH>  </TH> <TH>     steps </TH> <TH>      date </TH> <TH>    interval </TH>  </TR>
   <TR> <TD align="right"> 1 </TD> <TD> Min.   :  0.0   </TD> <TD> Min.   :2012-10-01   </TD> <TD> Min.   :   0   </TD> </TR>
@@ -150,6 +150,19 @@ _____________________________________________________________________
 ######
 
 ##  Create mean step counts for time intervals to create  histogram
+    int_total_steps <- aggregate(procdata$steps, list(interval=procdata$interval), FUN=mean, na.rm=TRUE)
+
+## N.B. Charted with identical params as raw data to avoid visualization difference
+    par(mfrow = c(1, 1), mar = c(5, 4, 2, 2))
+    hist(int_total_steps$x, breaks=40, col = "blue", xlab="Step Counts", ylab="Step Frequencies", main="Histogram of Processed Total Steps for Intervals")  
+```
+
+![plot of chunk imputingMissingValues](figure/imputingMissingValues.png) 
+
+#### Histograms of average values
+
+```r
+##  Create mean step counts for time intervals to create  histogram
     int_mean_steps <- aggregate(procdata$steps, list(interval=procdata$interval), FUN=mean, na.rm=TRUE)
 
 ## N.B. Charted with identical params as raw data to avoid visualization difference
@@ -157,7 +170,7 @@ _____________________________________________________________________
     hist(int_mean_steps$x, breaks=40, col = "green", xlab="Average Step Counts", ylab="Step Frequencies", main="Histogram of Processed Mean Steps for Intervals")  
 ```
 
-![plot of chunk imputingMissingValues](figure/imputingMissingValues1.png) 
+![plot of chunk imputedvalueAverages](figure/imputedvalueAverages1.png) 
 
 ```r
 ##  Create mean step counts for time intervals to create  histogram
@@ -168,7 +181,7 @@ _____________________________________________________________________
     hist(int_median_steps$x, breaks=40, col = "yellow", xlab="Median Step Counts", ylab="Step Frequencies", main="Histogram of Processed Median Steps")  
 ```
 
-![plot of chunk imputingMissingValues](figure/imputingMissingValues2.png) 
+![plot of chunk imputedvalueAverages](figure/imputedvalueAverages2.png) 
 
 Note: Processed data has:  **0** missing values 
 
